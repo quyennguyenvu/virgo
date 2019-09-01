@@ -23,7 +23,7 @@ func NewRouter() *chi.Mux {
 	// Todo handler
 	todo := handler.NewTodoHandler()
 	r.Get("/todo", todo.Index())
-	r.Post("/todo", todo.Create())
+	r.Post("/todo", todo.Store())
 	r.Get("/todo/{id:[1-9]+}", todo.Show())
 	r.Put("/todo/{id:[1-9]+}", todo.Update())
 	r.Delete("/todo/{id:[1-9]+}", todo.Destroy())

@@ -12,7 +12,7 @@ import (
 type TodoService interface {
 	List(strStatus string) Response
 	ByID(strID string) Response
-	Create(readClose io.ReadCloser) Response
+	Store(readClose io.ReadCloser) Response
 	Update(strID string, readCloser io.ReadCloser) Response
 	Destroy(strID string) Response
 }
@@ -83,11 +83,11 @@ func (sc *todoServiceImpl) ByID(strID string) Response {
 	}
 }
 
-func (sc *todoServiceImpl) Create(readCloser io.ReadCloser) Response {
+func (sc *todoServiceImpl) Store(readCloser io.ReadCloser) Response {
 	var todo storage.Todo
 	getBody(&todo, readCloser)
 
-	err := sc.todoDAO.Create(&todo)
+	err := sc.todoDAO.Store(&todo)
 	if err != nil {
 		return Response{
 			Data: nil,

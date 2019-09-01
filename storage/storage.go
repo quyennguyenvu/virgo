@@ -3,8 +3,8 @@ package storage
 import (
 	"sync"
 	"virgo/config"
-	"virgo/helper"
 
+	log "github.com/Sirupsen/logrus"
 	"github.com/jinzhu/gorm"
 )
 
@@ -18,8 +18,12 @@ func Connect() {
 		var err error
 		db, err = gorm.Open(conf.Driver, conf.DataSource)
 		if err != nil {
-			helper.Logging("Storage", "Connect", err.Error())
+			log.WithFields(log.Fields{
+				"entity": "Storage",
+				"method": "Connect",
+			}).Error(err.Error())
 		}
+		log.Println("Database connected")
 		db.LogMode(conf.LogMode)
 	})
 }

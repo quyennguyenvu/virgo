@@ -10,7 +10,7 @@ import (
 // TodoHandler ..
 type TodoHandler interface {
 	Index() http.HandlerFunc
-	Create() http.HandlerFunc
+	Store() http.HandlerFunc
 	Show() http.HandlerFunc
 	Update() http.HandlerFunc
 	Destroy() http.HandlerFunc
@@ -38,10 +38,10 @@ func (h *todoHandlerImpl) Index() http.HandlerFunc {
 	}
 }
 
-// Create ..
-func (h *todoHandlerImpl) Create() http.HandlerFunc {
+// Store ..
+func (h *todoHandlerImpl) Store() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		response := h.todoSC.Create(r.Body)
+		response := h.todoSC.Store(r.Body)
 		respond(w, response)
 	}
 }
